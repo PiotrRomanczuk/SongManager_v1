@@ -73,16 +73,10 @@ jobs:
       working-directory: ${{ env.FRONTEND_PATH }}
       run: npm run lint
 
+    # Tests temporarily disabled
     # - name: Test
     #   working-directory: ${{ env.FRONTEND_PATH }}
     #   run: npm test -- --coverage
-
-    - name: Upload frontend coverage reports
-      uses: codecov/codecov-action@v3
-      with:
-        directory: ${{ env.FRONTEND_PATH }}/coverage
-      env:
-        CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
 
   security-scan:
     runs-on: ubuntu-latest
@@ -95,7 +89,7 @@ jobs:
     - name: Run security scan
       uses: github/codeql-action/init@v2
       with:
-        languages: ['csharp', 'javascript', 'typescript']
+        languages: csharp, javascript, typescript
 
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v2
