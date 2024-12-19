@@ -15,7 +15,7 @@ namespace SongsAPI.Services
             _configuration = configuration;
         }
 
-        public string GenerateJwtToken(Student student)
+        public virtual string GenerateJwtToken(Student student)
         {
             var claims = new List<Claim>
             {

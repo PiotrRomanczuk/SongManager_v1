@@ -97,7 +97,17 @@ namespace SongsAPI.Controllers
                 return BadRequest();
             }
 
-            _context.Entry(song).State = EntityState.Modified;
+            var existingSong = await _context.Songs.FindAsync(id);
+            if (existingSong == null)
+            {
+                return NotFound();
+            }
+
+            existingSong.Title = song.Title;
+            existingSong.Level = song.Level;
+            existingSong.SongKey = song.SongKey;
+            existingSong.Author = song.Author;
+            existingSong.UltimateGuitarLink = song.UltimateGuitarLink;
 
             try
             {

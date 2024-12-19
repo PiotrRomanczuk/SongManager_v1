@@ -46,7 +46,10 @@ namespace SongsAPI.Services
                 }
                 else
                 {
-                    _context.Entry(existingSong).CurrentValues.SetValues(song);
+                    existingSong.Level = song.Level;
+                    existingSong.SongKey = song.SongKey;
+                    existingSong.Author = song.Author;
+                    existingSong.UltimateGuitarLink = song.UltimateGuitarLink;
                     _logger.LogInformation($"Updating existing song: {song.Title}");
                 }
             }

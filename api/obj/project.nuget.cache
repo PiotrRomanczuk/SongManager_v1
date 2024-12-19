@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "QLt7Xg8GGMU=",
+  "dgSpecHash": "IJGhSVHQgG0=",
   "success": true,
-  "projectFilePath": "C:\\Users\\proma\\CascadeProjects\\SongsAPI\\api\\SongsAPI.csproj",
+  "projectFilePath": "c:\\Users\\proma\\CascadeProjects\\SongsAPI\\api\\SongsAPI.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\proma\\.nuget\\packages\\csvhelper\\33.0.1\\csvhelper.33.0.1.nupkg.sha512",
     "C:\\Users\\proma\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",

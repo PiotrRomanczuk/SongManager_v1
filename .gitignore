@@ -1,0 +1,7 @@
+api.Tests/bin
+api.Tests/obj
+
+api/bin
+api/obj
+api/net8.0
+api/Debug

@@ -206,3 +206,4 @@ C:\Users\proma\CascadeProjects\SongsAPI\api\bin\Debug\net8.0\zh-Hans\Microsoft.C
 C:\Users\proma\CascadeProjects\SongsAPI\api\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.Workspaces.resources.dll
 C:\Users\proma\CascadeProjects\SongsAPI\api\bin\Debug\net8.0\runtimes\browser-wasm\nativeassets\net8.0\e_sqlite3.a
 c:\Users\proma\CascadeProjects\SongsAPI\api\bin\Debug\net8.0\CsvHelper.dll
+c:\Users\proma\CascadeProjects\SongsAPI\api\obj\Debug\net8.0\SongsAPI.sourcelink.json

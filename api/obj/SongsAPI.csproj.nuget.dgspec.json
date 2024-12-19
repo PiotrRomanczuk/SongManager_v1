@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\proma\\CascadeProjects\\SongsAPI\\api\\SongsAPI.csproj": {}
+    "c:\\Users\\proma\\CascadeProjects\\SongsAPI\\api\\SongsAPI.csproj": {}
   },
   "projects": {
-    "C:\\Users\\proma\\CascadeProjects\\SongsAPI\\api\\SongsAPI.csproj": {
+    "c:\\Users\\proma\\CascadeProjects\\SongsAPI\\api\\SongsAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\proma\\CascadeProjects\\SongsAPI\\api\\SongsAPI.csproj",
+        "projectUniqueName": "c:\\Users\\proma\\CascadeProjects\\SongsAPI\\api\\SongsAPI.csproj",
         "projectName": "SongsAPI",
-        "projectPath": "C:\\Users\\proma\\CascadeProjects\\SongsAPI\\api\\SongsAPI.csproj",
+        "projectPath": "c:\\Users\\proma\\CascadeProjects\\SongsAPI\\api\\SongsAPI.csproj",
         "packagesPath": "C:\\Users\\proma\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\proma\\CascadeProjects\\SongsAPI\\api\\obj\\",
+        "outputPath": "c:\\Users\\proma\\CascadeProjects\\SongsAPI\\api\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

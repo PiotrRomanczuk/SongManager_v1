@@ -30,6 +30,7 @@ export interface Song {
 }
 
 export interface AuthResponse {
+  name: string;
   token: string;
   email: string;
   userName: string;

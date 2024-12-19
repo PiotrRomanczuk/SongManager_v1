@@ -25,7 +25,7 @@ namespace SongsAPI.Controllers
 
         private async Task<ActionResult<AuthResponse>> GenerateAuthResponse(Student user)
         {
-            var roles = await _userManager.GetRolesAsync(user);
+            var roles = await _userManager.GetRolesAsync(user) ?? new List<string>();
             var token = _tokenService.GenerateJwtToken(user);
 
             return new AuthResponse
@@ -48,12 +48,24 @@ namespace SongsAPI.Controllers
             };
 
             var result = await _userManager.CreateAsync(user, model.Password);
-            if (result.Succeeded)
+            if (!result.Succeeded)
             {
-                return await GenerateAuthResponse(user);
+                return BadRequest(result.Errors);
             }
 
-            return BadRequest(result.Errors);
+            var addRoleResult = await _userManager.AddToRoleAsync(user, "Student");
+            if (!addRoleResult.Succeeded)
+            {
+                return BadRequest(addRoleResult.Errors);
+            }
+
+            var createdUser = await _userManager.FindByEmailAsync(model.Email);
+            if (createdUser == null)
+            {
+                return StatusCode(500, "Failed to retrieve created user");
+            }
+
+            return await GenerateAuthResponse(createdUser);
         }
 
         [HttpPost("login")]
