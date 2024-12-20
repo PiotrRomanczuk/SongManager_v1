@@ -56,18 +56,14 @@ builder.Services.AddAuthentication(options =>
         ValidAudience = builder.Configuration["JwtSettings:Audience"],
         IssuerSigningKey = new SymmetricSecurityKey(
             Encoding.UTF8.GetBytes(
-                builder.Configuration["JwtSettings:SecretKey"] ?? 
+                builder.Configuration["JwtSettings:SecretKey"] ??
                 throw new InvalidOperationException("JWT Secret Key not found in configuration")))
     };
 });
 
-// Add Token Service
+// Add Scopes for Token Service, SongImportService, RoleService
 builder.Services.AddScoped<TokenService>();
-
-// Add SongImportService
 builder.Services.AddScoped<SongImportService>();
-
-// Add RoleService
 builder.Services.AddScoped<RoleService>();
 
 // Add CORS
@@ -86,15 +82,15 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI(c =>
+    app.UseSwaggerUI(options =>
     {
-        c.SwaggerEndpoint("/swagger/v1/swagger.json", "Songs API V1");
-        c.RoutePrefix = "";
+        options.SwaggerEndpoint("/swagger/v1/swagger.json", "Songs API V1");
+        options.RoutePrefix = "";
     });
 }
 
 // Commented out HTTPS redirection for development
-// app.UseHttpsRedirection();
+app.UseHttpsRedirection();
 
 // Use CORS
 app.UseCors("AllowReactApp");
@@ -109,19 +105,9 @@ app.MapControllers();
 app.MapGet("/", () => "Welcome to Songs API - Go to /swagger for API documentation");
 
 // Initialize Database
-using (var scope = app.Services.CreateScope())
-{
-    var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-    var songImportService = scope.ServiceProvider.GetRequiredService<SongImportService>();
-    context.Database.EnsureCreated();
-    await SeedData.Initialize(context, songImportService);
-}
+await DatabaseInitializer.InitializeDatabaseAsync(app);
+await DatabaseInitializer.EnsureAdminRoleExistsAsync(app);
+await DatabaseInitializer.EnsureRolesCreatedAsync(app);
 
-// Ensure Admin role exists and piotr is in it
-using (var scope = app.Services.CreateScope())
-{
-    var roleService = scope.ServiceProvider.GetRequiredService<RoleService>();
-    await roleService.EnsureAdminRoleExists();
-}
 
 app.Run();

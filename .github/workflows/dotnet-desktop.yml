@@ -2,9 +2,9 @@ name: SongsAPI CI/CD
 
 on:
   push:
-    branches: [ "main" ]
+    branches: ['main']
   pull_request:
-    branches: [ "main" ]
+    branches: ['main']
 
 env:
   DOTNET_VERSION: '8.0.x'
@@ -18,60 +18,60 @@ jobs:
     runs-on: windows-latest
 
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v3
+      - name: Checkout repository
+        uses: actions/checkout@v3
 
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v3
-      with:
-        dotnet-version: ${{ env.DOTNET_VERSION }}
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
 
-    - name: Restore dependencies
-      run: |
-        dotnet restore ${{ env.API_PROJECT_PATH }}
-        dotnet restore ${{ env.TEST_PROJECT_PATH }}
+      - name: Restore dependencies
+        run: |
+          dotnet restore ${{ env.API_PROJECT_PATH }}
+          dotnet restore ${{ env.TEST_PROJECT_PATH }}
 
-    - name: Build
-      run: |
-        dotnet build ${{ env.API_PROJECT_PATH }} --configuration Release --no-restore
-        dotnet build ${{ env.TEST_PROJECT_PATH }} --configuration Release --no-restore
+      - name: Build
+        run: |
+          dotnet build ${{ env.API_PROJECT_PATH }} --configuration Release --no-restore
+          dotnet build ${{ env.TEST_PROJECT_PATH }} --configuration Release --no-restore
 
-    - name: Test
-      run: dotnet test ${{ env.TEST_PROJECT_PATH }} --configuration Release --no-build --verbosity normal --collect:"XPlat Code Coverage"
+      - name: Test
+        run: dotnet test ${{ env.TEST_PROJECT_PATH }} --configuration Release --no-build --verbosity normal --collect:"XPlat Code Coverage"
 
-    - name: Cache NuGet packages
-      uses: actions/cache@v3
-      with:
-        path: ~/.nuget/packages
-        key: ${{ runner.os }}-nuget-${{ hashFiles('**/*.csproj') }}
-        restore-keys: |
-          ${{ runner.os }}-nuget-
+      - name: Cache NuGet packages
+        uses: actions/cache@v3
+        with:
+          path: ~/.nuget/packages
+          key: ${{ runner.os }}-nuget-${{ hashFiles('**/*.csproj') }}
+          restore-keys: |
+            ${{ runner.os }}-nuget-
 
   build-and-test-frontend:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v3
+      - name: Checkout repository
+        uses: actions/checkout@v3
 
-    - name: Setup Node.js
-      uses: actions/setup-node@v3
-      with:
-        node-version: ${{ env.NODE_VERSION }}
-        cache: 'npm'
-        cache-dependency-path: ${{ env.FRONTEND_PATH }}/package-lock.json
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+          cache-dependency-path: ${{ env.FRONTEND_PATH }}/package-lock.json
 
-    - name: Install dependencies
-      working-directory: ${{ env.FRONTEND_PATH }}
-      run: npm ci
+      - name: Install dependencies
+        working-directory: ${{ env.FRONTEND_PATH }}
+        run: npm ci
 
-    - name: Build
-      working-directory: ${{ env.FRONTEND_PATH }}
-      run: npm run build
+      - name: Build
+        working-directory: ${{ env.FRONTEND_PATH }}
+        run: npm run build
 
-    - name: Lint
-      working-directory: ${{ env.FRONTEND_PATH }}
-      run: npm run lint
+      - name: Lint
+        working-directory: ${{ env.FRONTEND_PATH }}
+        run: npm run lint
 
     # Tests temporarily disabled
     # - name: Test
@@ -83,13 +83,13 @@ jobs:
     needs: [build-and-test-backend, build-and-test-frontend]
 
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v3
+      - name: Checkout repository
+        uses: actions/checkout@v3
 
-    - name: Run security scan
-      uses: github/codeql-action/init@v2
-      with:
-        languages: csharp, javascript, typescript
+      - name: Run security scan
+        uses: github/codeql-action/init@v2
+        with:
+          languages: csharp, javascript, typescript
 
-    - name: Perform CodeQL Analysis
-      uses: github/codeql-action/analyze@v2
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v2
