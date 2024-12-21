@@ -58,25 +58,25 @@ SongsAPI/
 
 1. Navigate to the `api` directory:
 
-   ```sh
+   ```
    cd api
    ```
 
 2. Restore the dependencies:
 
-   ```sh
+   ```
    dotnet restore
    ```
 
 3. Update the database:
 
-   ```sh
+   ```
    dotnet ef database update
    ```
 
 4. Run the API:
 
-   ```sh
+   ```
    dotnet run
    ```
 
@@ -88,19 +88,19 @@ frontend
 
 directory:
 
-    ```sh
+    ```
     cd frontend
     ```
 
 2. Install the dependencies:
 
-   ```sh
+   ```
    npm install
    ```
 
 3. Run the development server:
 
-   ```sh
+   ```
    npm run dev
    ```
 
@@ -114,13 +114,13 @@ api.Tests
 
 directory:
 
-    ```sh
+    ```
     cd api.Tests
     ```
 
 2. Run the tests:
 
-   ```sh
+   ```
    dotnet test
    ```
 
@@ -132,13 +132,13 @@ frontend
 
 directory:
 
-    ```sh
+    ```
     cd frontend
     ```
 
 2. Run the tests:
 
-   ```sh
+   ```
    npm run test
    ```
 
@@ -185,25 +185,25 @@ Information about the project's license.
 
 1. Navigate to the `api` directory:
 
-   ```sh
+   ```
    cd api
    ```
 
 2. Restore the dependencies:
 
-   ```sh
+   ```
    dotnet restore
    ```
 
 3. Update the database:
 
-   ```sh
+   ```
    dotnet ef database update
    ```
 
 4. Run the API:
 
-   ```sh
+   ```
    dotnet run
    ```
 
@@ -211,19 +211,19 @@ Information about the project's license.
 
 1. Navigate to the [`frontend`](frontend) directory:
 
-   ```sh
+   ```
    cd frontend
    ```
 
 2. Install the dependencies:
 
-   ```sh
+   ```
    npm install
    ```
 
 3. Run the development server:
 
-   ```sh
+   ```
    npm run dev
    ```
 
@@ -233,13 +233,13 @@ Information about the project's license.
 
 1. Navigate to the [`api.Tests`](api.Tests) directory:
 
-   ```sh
+   ```
    cd api.Tests
    ```
 
 2. Run the tests:
 
-   ```sh
+   ```
    dotnet test
    ```
 
@@ -247,13 +247,13 @@ Information about the project's license.
 
 1. Navigate to the [`frontend`](frontend) directory:
 
-   ```sh
+   ```
    cd frontend
    ```
 
 2. Run the tests:
 
-   ```sh
+   ```
    npm run test
    ```
 

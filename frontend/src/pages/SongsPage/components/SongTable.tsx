@@ -78,6 +78,7 @@ export function SongTable({ songs, isAdmin, totalSongs }: SongsTableProps) {
 								className={
 									currentPage === 1 ? 'pointer-events-none opacity-50' : ''
 								}
+								size='sm'
 							/>
 						</PaginationItem>
 						{[...Array(totalPages)].map((_, index) => (
@@ -85,6 +86,7 @@ export function SongTable({ songs, isAdmin, totalSongs }: SongsTableProps) {
 								<PaginationLink
 									onClick={() => handlePageChange(index + 1)}
 									isActive={currentPage === index + 1}
+									size='sm'
 								>
 									{index + 1}
 								</PaginationLink>
@@ -100,6 +102,7 @@ export function SongTable({ songs, isAdmin, totalSongs }: SongsTableProps) {
 										? 'pointer-events-none opacity-50'
 										: ''
 								}
+								size='sm'
 							/>
 						</PaginationItem>
 					</PaginationContent>
