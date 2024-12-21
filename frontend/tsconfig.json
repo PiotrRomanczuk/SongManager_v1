@@ -1,8 +1,9 @@
 {
 	"compilerOptions": {
-		"baseUrl": ".",
+		"baseUrl": "./", // Ensure this is set to the correct base directory
 		"paths": {
-			"@/*": ["./src/*"]
+			"@/*": ["src/*"] // Adjust the path to match your directory structure
+			// "@server/*": ["server/src/*"]
 		}
 	},
 	"include": ["src/**/*"],

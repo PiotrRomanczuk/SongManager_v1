@@ -8,6 +8,7 @@ import useLoadSongs from '../../hooks/useLoadSongs';
 
 export function SongsPage() {
 	const { isAdmin } = useAuth();
+	console.log(isAdmin);
 	const { loading, songs, error } = useLoadSongs();
 
 	if (loading) {
@@ -27,12 +28,12 @@ export function SongsPage() {
 		<Container className='max-w-4xl'>
 			<div className='my-8'>
 				Songs
-				{isAdmin && (
+				{!isAdmin && (
 					<div className='mb-4'>
 						<Button>Import Songs</Button>
 					</div>
 				)}
-				<SongTable songs={songs} isAdmin={isAdmin} />
+				<SongTable songs={songs} isAdmin={isAdmin} totalSongs={songs.length} />
 			</div>
 		</Container>
 	);

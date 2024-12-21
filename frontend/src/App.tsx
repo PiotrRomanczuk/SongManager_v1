@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useAuth } from './contexts/AuthContext';
-import RegisterPage from './pages/RegisterPage';
+import RegisterPage from './pages/RegisterPage/RegisterPage';
 import StudentMainPage from './pages/SongsPage/StudentMainPage';
 
 function App() {

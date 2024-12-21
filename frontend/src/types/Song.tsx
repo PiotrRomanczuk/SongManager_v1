@@ -4,4 +4,9 @@ export interface Song {
 	author?: string;
 	level?: string;
 	songKey?: string;
+	chords?: string;
+	audioFiles?: string;
+	createdAt: string;
+	ultimateGuitarLink?: string;
+	shortTitle?: string;
 }

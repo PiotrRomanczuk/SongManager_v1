@@ -7,7 +7,7 @@ export interface NavBarProps {
 
 const NavBar: React.FC<NavBarProps> = ({ logout, user }) => {
 	return (
-		<nav className='py-2 px-3 mx-0 bg-primary text-white '>
+		<nav className='py-2 px-3 mx-0 bg-black text-white '>
 			<div className='flex justify-between items-center'>
 				<h6 className='text-lg'>Songs API</h6>
 				<div>
