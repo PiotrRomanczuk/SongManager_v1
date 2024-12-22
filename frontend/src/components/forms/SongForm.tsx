@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { songsApi } from '../lib/api';
-import { Button } from './ui/button';
+import { songsApi } from '@/lib/api';
+import { Button } from '@/components/ui/button';
 
 interface SongFormProps {
 	onSuccess: () => void;

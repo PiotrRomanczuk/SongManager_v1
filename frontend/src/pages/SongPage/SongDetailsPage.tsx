@@ -2,10 +2,10 @@ import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
 import { Song } from 'types/Song';
-import { LoadingComponent } from './components/LoadingComponent';
-import { ErrorComponent } from './components/ErrorComponent';
-import { SongDetails } from './components/SongDetails';
-import { useLoadSongs } from '../../hooks/useLoadSongs';
+import { LoadingComponent } from './songPageComp/LoadingComponent';
+import { ErrorComponent } from './songPageComp/ErrorComponent';
+import { SongDetails } from './songPageComp/SongDetails';
+import { useLoadSongs } from '@/hooks/useLoadSongs';
 
 export function SongDetailsPage() {
 	const { shortTitle } = useParams<{ shortTitle: string }>();

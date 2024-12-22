@@ -1,7 +1,7 @@
-import { Song } from '../../../types/Song';
+import { Song } from '@/types/Song';
 import { SongsTable } from './SongsTable';
-import { Button } from '../../../components/ui/button';
-import { useAuth } from '../../../contexts/AuthContext';
+import { Button } from '@/components/ui/button';
+import { useAuth } from '@/contexts/AuthContext';
 import { ErrorComponent } from './ErrorComponent';
 
 interface SongsListProps {

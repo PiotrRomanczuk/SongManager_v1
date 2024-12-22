@@ -1,16 +1,11 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { ArrowLeft, Music, User, BarChart, Key } from 'lucide-react';
-import {
-	Card,
-	CardHeader,
-	CardTitle,
-	CardContent,
-} from '../../../components/ui/card';
-import { Button } from '../../../components/ui/button';
-import { Song } from '../../../types/Song';
+import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Song } from '@/types/Song';
 import EditSongForm from './EditSongForm';
-import { songsApi } from '../../../lib/api';
+import { songsApi } from '@/lib/api';
 
 interface SongDetailsProps {
 	song: Song;

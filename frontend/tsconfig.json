@@ -22,11 +22,11 @@
 		"types": ["node"],
 
 		/* Aliases with default import */
-		"rootDir": "src",
+		// "rootDir": "src",
 		"outDir": "dist",
 		"baseUrl": "./src",
 		"paths": {
-			"@/*": ["./src/*"],
+			"@/*": ["./*"],
 			"components/*": ["./src/components/*"]
 		}
 	},

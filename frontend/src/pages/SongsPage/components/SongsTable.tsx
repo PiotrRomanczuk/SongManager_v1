@@ -7,8 +7,8 @@ import {
 	TableHead,
 	TableHeader,
 	TableRow,
-} from '../../../components/ui/table';
-import { Button } from '../../../components/ui/button';
+} from '@/components/ui/table';
+import { Button } from '@/components/ui/button';
 import {
 	Pagination,
 	PaginationContent,
@@ -16,8 +16,8 @@ import {
 	PaginationLink,
 	PaginationNext,
 	PaginationPrevious,
-} from '../../../components/ui/pagination';
-import { Song } from '../../../types/Song';
+} from '@/components/ui/pagination';
+import { Song } from '@/types/Song';
 
 interface SongsTableProps {
 	songs: Song[];
