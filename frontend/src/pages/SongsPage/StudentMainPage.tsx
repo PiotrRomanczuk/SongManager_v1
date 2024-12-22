@@ -7,6 +7,7 @@ import {
 } from 'react-router-dom';
 import NavBar from '../../components/NavBar';
 import { SongsPage } from './SongsPage';
+import { SongDetailsPage } from '../SongPage/SongDetailsPage';
 
 const StudentMainPage: React.FC<NavBarProps> = ({ logout, user }) => {
 	return (
@@ -17,6 +18,7 @@ const StudentMainPage: React.FC<NavBarProps> = ({ logout, user }) => {
 					<Routes>
 						<Route path='/songs' element={<SongsPage />} />
 						<Route path='/' element={<Navigate to='/songs' replace />} />
+						<Route path='/songs/:shortTitle' element={<SongDetailsPage />} />
 					</Routes>
 				</main>
 			</div>

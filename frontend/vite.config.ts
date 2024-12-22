@@ -1,13 +1,13 @@
 import { defineConfig } from 'vite';
-import react from '@vitejs/plugin-react';
+import react from '@vitejs/plugin-react-swc';
+// Also don't forget to `npm i -D @types/node`, so __dirname won't complain
 import * as path from 'path';
 
+// https://vitejs.dev/config/
 export default defineConfig({
-	resolve: {
-		alias: {
-			'@': path.resolve(__dirname, 'src'), // Ensure this matches the base directory in tsconfig.json
-			'@server': path.resolve(__dirname, '../server/src'),
-		},
-	},
 	plugins: [react()],
+	resolve: {
+		alias: [{ find: '@', replacement: path.resolve(__dirname, 'src') }],
+		conditions: ['src'],
+	},
 });

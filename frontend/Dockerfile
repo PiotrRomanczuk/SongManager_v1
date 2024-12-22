@@ -5,6 +5,9 @@ WORKDIR /app
 # Copy package.json and package-lock.json
 COPY frontend/package.json frontend/package-lock.json ./
 
+# Clear npm cache
+RUN npm cache clean --force
+
 # Install dependencies
 RUN npm install
 

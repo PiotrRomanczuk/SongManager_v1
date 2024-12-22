@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("SongsAPI")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+8899f3b5fc07f2875a43abc6dba1058f8ab769c6")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+4d3e6918927b74eb3df4c35140ad4c3ee15ed5e4")]
 [assembly: System.Reflection.AssemblyProductAttribute("SongsAPI")]
 [assembly: System.Reflection.AssemblyTitleAttribute("SongsAPI")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

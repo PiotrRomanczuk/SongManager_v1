@@ -22,7 +22,8 @@
 		"noFallthroughCasesInSwitch": true,
 		"noUncheckedSideEffectImports": true,
 
-		"composite": true
+		"composite": true,
+		"outDir": "./dist/app"
 	},
 	"include": ["src"]
 }

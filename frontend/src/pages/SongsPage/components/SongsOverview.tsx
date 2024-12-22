@@ -1,14 +1,14 @@
 import { Song } from '../../../types/Song';
-import { SongTable } from './SongTable';
+import { SongsTable } from './SongsTable';
 import { Button } from '../../../components/ui/button';
 import { useAuth } from '../../../contexts/AuthContext';
-import ErrorComponent from './ErrorComponent';
+import { ErrorComponent } from './ErrorComponent';
 
 interface SongsListProps {
 	songs: Song[];
 }
 
-export function SongsList({ songs }: SongsListProps) {
+export function SongsOverview({ songs }: SongsListProps) {
 	const { isAdmin } = useAuth();
 	console.log(isAdmin);
 
@@ -25,7 +25,7 @@ export function SongsList({ songs }: SongsListProps) {
 			{songs.length === 0 ? (
 				<ErrorComponent error='No songs found' />
 			) : (
-				<SongTable songs={songs} isAdmin={isAdmin} />
+				<SongsTable songs={songs} isAdmin={isAdmin} totalSongs={songs.length} />
 			)}
 		</div>
 	);

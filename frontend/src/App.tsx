@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useAuth } from './contexts/AuthContext';
-import RegisterPage from './pages/RegisterPage/RegisterPage';
 import StudentMainPage from './pages/SongsPage/StudentMainPage';
+import AuthPage from './pages/RegisterPage/AuthPage';
 
 function App() {
 	const [showRegister, setShowRegister] = useState(false);
@@ -9,10 +9,7 @@ function App() {
 
 	if (!isAuthenticated) {
 		return (
-			<RegisterPage
-				showRegister={showRegister}
-				setShowRegister={setShowRegister}
-			/>
+			<AuthPage showRegister={showRegister} setShowRegister={setShowRegister} />
 		);
 	}
 

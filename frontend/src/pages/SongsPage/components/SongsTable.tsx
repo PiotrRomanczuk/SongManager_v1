@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import {
 	Table,
 	TableBody,
@@ -24,7 +25,7 @@ interface SongsTableProps {
 	totalSongs: number;
 }
 
-export function SongTable({ songs, isAdmin, totalSongs }: SongsTableProps) {
+export function SongsTable({ songs, isAdmin, totalSongs }: SongsTableProps) {
 	const [currentPage, setCurrentPage] = useState(1);
 	const itemsPerPage = 12;
 	const totalPages = Math.ceil(totalSongs / itemsPerPage);
@@ -58,11 +59,18 @@ export function SongTable({ songs, isAdmin, totalSongs }: SongsTableProps) {
 								<TableCell>{song.level}</TableCell>
 								<TableCell>{song.songKey}</TableCell>
 								<TableCell>
-									{isAdmin && (
-										<Button variant='outline' size='sm'>
-											Edit
-										</Button>
-									)}
+									<div className='space-x-2'>
+										<Link to={`/songs/${song.shortTitle}`}>
+											<Button variant='secondary' size='sm'>
+												View Details
+											</Button>
+										</Link>
+										{isAdmin && (
+											<Button variant='outline' size='sm'>
+												Edit
+											</Button>
+										)}
+									</div>
 								</TableCell>
 							</TableRow>
 						))}
@@ -78,15 +86,15 @@ export function SongTable({ songs, isAdmin, totalSongs }: SongsTableProps) {
 								className={
 									currentPage === 1 ? 'pointer-events-none opacity-50' : ''
 								}
-								size='sm'
+								size={undefined}
 							/>
 						</PaginationItem>
 						{[...Array(totalPages)].map((_, index) => (
-							<PaginationItem key={index}>
+							<PaginationItem key={index} className='px-1'>
 								<PaginationLink
 									onClick={() => handlePageChange(index + 1)}
 									isActive={currentPage === index + 1}
-									size='sm'
+									size={undefined}
 								>
 									{index + 1}
 								</PaginationLink>
@@ -102,7 +110,7 @@ export function SongTable({ songs, isAdmin, totalSongs }: SongsTableProps) {
 										? 'pointer-events-none opacity-50'
 										: ''
 								}
-								size='sm'
+								size={undefined}
 							/>
 						</PaginationItem>
 					</PaginationContent>

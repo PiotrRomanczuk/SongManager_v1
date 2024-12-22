@@ -5,16 +5,19 @@
 	"type": "module",
 	"scripts": {
 		"dev": "vite",
-		"build": "tsc -b && vite build",
+		"build": "tsc -b && vite build --outDir .build",
 		"lint": "eslint .",
-		"preview": "vite preview"
+		"preview": "vite preview",
+		"clean": "rm -rf node_modules && npm cache clean --force"
 	},
 	"dependencies": {
 		"@emotion/react": "^11.14.0",
 		"@emotion/styled": "^11.14.0",
 		"@mui/material": "^6.2.1",
 		"@radix-ui/react-dialog": "^1.1.4",
+		"@radix-ui/react-label": "^2.1.1",
 		"@radix-ui/react-slot": "^1.1.1",
+		"@vitejs/plugin-react-swc": "^3.7.2",
 		"autoprefixer": "^10.4.20",
 		"axios": "^1.7.9",
 		"class-variance-authority": "^0.7.1",

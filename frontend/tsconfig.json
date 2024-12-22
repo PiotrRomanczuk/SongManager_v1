@@ -1,14 +1,41 @@
 {
 	"compilerOptions": {
-		"baseUrl": "./", // Ensure this is set to the correct base directory
+		"target": "ESNext",
+		"lib": ["DOM", "DOM.Iterable", "ESNext"],
+		"module": "ESNext",
+		"skipLibCheck": true,
+		"customConditions": ["my-package-dev"],
+
+		/* Bundler mode */
+		"moduleResolution": "bundler",
+		"allowImportingTsExtensions": true,
+		"resolveJsonModule": true,
+		"isolatedModules": true,
+		"noEmit": true,
+		"jsx": "react-jsx",
+
+		/* Linting */
+		"strict": true,
+		"noUnusedLocals": true,
+		"noUnusedParameters": true,
+		"noFallthroughCasesInSwitch": true,
+		"types": ["node"],
+
+		/* Aliases with default import */
+		"rootDir": "src",
+		"outDir": "dist",
+		"baseUrl": "./src",
 		"paths": {
-			"@/*": ["src/*"] // Adjust the path to match your directory structure
-			// "@server/*": ["server/src/*"]
+			"@/*": ["./src/*"],
+			"components/*": ["./src/components/*"]
 		}
 	},
-	"include": ["src/**/*"],
-	"references": [
-		{ "path": "./tsconfig.app.json" },
-		{ "path": "./tsconfig.node.json" }
-	]
+	"include": [
+		"src/**/*.ts",
+		"src/**/*.d.ts",
+		"src/**/*.tsx",
+		"src/**/**/*.tsx",
+		"src/**/**/**/*.tsx"
+	],
+	"references": [{ "path": "./tsconfig.node.json" }]
 }

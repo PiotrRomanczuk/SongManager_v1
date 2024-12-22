@@ -25,6 +25,21 @@ namespace SongsAPI.Data
             {
                 throw new FileNotFoundException($"CSV file not found at {csvPath}");
             }
+
+            // Create ShortTitle for every song without spaces
+            foreach (var song in context.Songs)
+            {
+                var shortTitle = GenerateShortTitle(song.Title);
+                song.ShortTitle = string.IsNullOrEmpty(shortTitle) ? "Unknown" : shortTitle.Replace(" ", string.Empty);
+            }
+
+            await context.SaveChangesAsync();
+        }
+
+        private static string GenerateShortTitle(string title)
+        {
+            // Logic to generate a short title, e.g., first 10 characters
+            return title.Length <= 10 ? title : title.Substring(0, 10);
         }
     }
 }

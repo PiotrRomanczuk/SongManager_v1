@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 import { songsApi } from '../lib/api';
-import { Song } from '../lib/api';
+import { Song } from '../types/Song';
 
-const useLoadSongs = () => {
+export const useLoadSongs = () => {
 	const [loading, setLoading] = useState(false);
 	const [songs, setSongs] = useState<Song[]>([]);
 	const [error, setError] = useState<string | null>(null);
@@ -31,5 +31,3 @@ const useLoadSongs = () => {
 
 	return { loading, songs, error };
 };
-
-export default useLoadSongs;

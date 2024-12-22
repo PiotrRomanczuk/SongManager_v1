@@ -4,12 +4,6 @@ SongsAPI is a web API for managing songs, lessons, and students. It is built wit
 
 ## Project Structure
 
-# SongsAPI
-
-SongsAPI is a web API for managing songs, lessons, and students. It is built with ASP.NET Core and Entity Framework Core.
-
-## Project Structure
-
 SongsAPI/
 ├── .github/
 │ └── workflows/
@@ -156,118 +150,111 @@ Contributions are welcome! Please open an issue or submit a pull request.
 
 This project is licensed under the MIT License.
 
-````
+# Songs API
 
-## Installation
+An API for managing songs, built with ASP.NET Core.
 
-Instructions on how to install and set up the project.
+## Features
 
-## Usage
-
-Examples of how to use the project.
-
-## Contributing
-
-Guidelines for contributing to the project.
-
-## License
-
-Information about the project's license.
+- User authentication with JWT
+- Role-based authorization
+- Song management
+- Swagger API documentation
+- CORS support for React applications
 
 ## Getting Started
 
 ### Prerequisites
 
-- [.NET 8.0 SDK](https://dotnet.microsoft.com/download/dotnet/8.0)
-- [Node.js](https://nodejs.org/) (for the frontend)
+- [.NET 6 SDK](https://dotnet.microsoft.com/download/dotnet/6.0)
+- [SQLite](https://www.sqlite.org/download.html)
 
-### Setting Up the API
+### Installation
 
-1. Navigate to the `api` directory:
+1. Clone the repository:
 
+   ```sh
+   git clone https://github.com/yourusername/SongsAPI.git
+   cd SongsAPI
    ```
-   cd api
-   ```
 
-2. Restore the dependencies:
+2. Install dependencies:
 
-   ```
+   ```sh
    dotnet restore
    ```
 
-3. Update the database:
+3. Update the connection string in `appsettings.json`:
 
-   ```
-   dotnet ef database update
+   ```json
+   "ConnectionStrings": {
+       "DefaultConnection": "Data Source=songs.db"
+   }
    ```
 
-4. Run the API:
-
+4. Add JWT settings in `appsettings.json`:
+   ```json
+   "JwtSettings": {
+       "Issuer": "your-issuer",
+       "Audience": "your-audience",
+       "SecretKey": "your-secret-key"
+   }
    ```
+
+### Running the API
+
+1. Build and run the application:
+
+   ```sh
    dotnet run
    ```
 
-### Setting Up the Frontend
+2. Open your browser and navigate to `https://localhost:5001/swagger` to view the Swagger API documentation.
 
-1. Navigate to the [`frontend`](frontend) directory:
+### Usage
 
-   ```
-   cd frontend
-   ```
+- Use the Swagger UI to explore and test the API endpoints.
+- Use a tool like Postman to interact with the API.
 
-2. Install the dependencies:
+### Endpoints
 
-   ```
-   npm install
-   ```
+#### Authentication
 
-3. Run the development server:
+- `POST /api/auth/login` - Authenticate a user and return a JWT token.
+- `POST /api/auth/register` - Register a new user.
 
-   ```
-   npm run dev
-   ```
+#### Songs
 
-## Running Tests
+- `GET /api/songs` - Get a list of all songs.
+- `GET /api/songs/{id}` - Get details of a specific song by ID.
+- `POST /api/songs` - Add a new song.
+- `PUT /api/songs/{id}` - Update an existing song by ID.
+- `DELETE /api/songs/{id}` - Delete a song by ID.
 
-### API Tests
+#### Users
 
-1. Navigate to the [`api.Tests`](api.Tests) directory:
+- `GET /api/users` - Get a list of all users.
+- `GET /api/users/{id}` - Get details of a specific user by ID.
+- `PUT /api/users/{id}` - Update an existing user by ID.
+- `DELETE /api/users/{id}` - Delete a user by ID.
 
-   ```
-   cd api.Tests
-   ```
+#### Roles
 
-2. Run the tests:
+- `GET /api/roles` - Get a list of all roles.
+- `POST /api/roles` - Create a new role.
+- `DELETE /api/roles/{name}` - Delete a role by name.
 
-   ```
-   dotnet test
-   ```
+### Development
 
-### Frontend Tests
+- To enable hot-reloading during development, use:
+  ```sh
+  dotnet watch run
+  ```
 
-1. Navigate to the [`frontend`](frontend) directory:
-
-   ```
-   cd frontend
-   ```
-
-2. Run the tests:
-
-   ```
-   npm run test
-   ```
-
-## Project Structure
-
-- **api**: Contains the ASP.NET Core API project.
-- **api.Tests**: Contains the test project for the API.
-- **frontend**: Contains the React frontend project.
-
-## Contributing
+### Contributing
 
 Contributions are welcome! Please open an issue or submit a pull request.
 
-## License
+### License
 
 This project is licensed under the MIT License.
-````
