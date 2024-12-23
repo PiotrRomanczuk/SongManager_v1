@@ -6,6 +6,13 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
+import {
+	Select,
+	SelectContent,
+	SelectItem,
+	SelectTrigger,
+	SelectValue,
+} from '@/components/ui/select';
 
 interface EditSongFormProps {
 	song: Song;
@@ -14,7 +21,11 @@ interface EditSongFormProps {
 
 const EditSongForm = ({ song, onCancel }: EditSongFormProps) => {
 	const [formData, setFormData] = useState(song);
-	const navigate = useNavigate();
+	// const navigate = useNavigate();
+
+	const refreshPage = () => {
+		window.location.reload();
+	};
 
 	const handleChange = (
 		e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -23,10 +34,15 @@ const EditSongForm = ({ song, onCancel }: EditSongFormProps) => {
 		setFormData((prev) => ({ ...prev, [name]: value }));
 	};
 
+	const handleSelectChange = (value: string) => {
+		setFormData((prev) => ({ ...prev, level: value }));
+	};
+
 	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault();
 		await songsApi.updateSong(song.id, formData);
-		navigate(`/songs/${song.id}`);
+		console.log(formData);
+		refreshPage();
 	};
 
 	return (
@@ -53,13 +69,16 @@ const EditSongForm = ({ song, onCancel }: EditSongFormProps) => {
 			</div>
 			<div>
 				<Label htmlFor='level'>Level</Label>
-				<Input
-					id='level'
-					name='level'
-					value={formData.level}
-					onChange={handleChange}
-					required
-				/>
+				<Select onValueChange={handleSelectChange} value={formData.level}>
+					<SelectTrigger className='w-[180px]'>
+						<SelectValue placeholder='Song level' />
+					</SelectTrigger>
+					<SelectContent>
+						<SelectItem value='beginner'>beginner</SelectItem>
+						<SelectItem value='intermediate'>intermediate</SelectItem>
+						<SelectItem value='advanced'>advanced</SelectItem>
+					</SelectContent>
+				</Select>
 			</div>
 			<div>
 				<Label htmlFor='songKey'>Key</Label>
@@ -71,16 +90,6 @@ const EditSongForm = ({ song, onCancel }: EditSongFormProps) => {
 					required
 				/>
 			</div>
-			{/* <div>
-				<Label htmlFor='lyrics'>Lyrics</Label>
-				<Textarea
-					id='lyrics'
-					name='lyrics'
-					value={formData.lyrics}
-					onChange={handleChange}
-					rows={10}
-				/>
-			</div> */}
 			<div>
 				<Label htmlFor='chords'>Chords</Label>
 				<Textarea
@@ -91,16 +100,6 @@ const EditSongForm = ({ song, onCancel }: EditSongFormProps) => {
 					rows={10}
 				/>
 			</div>
-			{/* <div>
-				<Label htmlFor='notes'>Notes</Label>
-				<Textarea
-					id='notes'
-					name='notes'
-					value={formData.notes}
-					onChange={handleChange}
-					rows={5}
-				/>
-			</div> */}
 			<div className='space-x-4'>
 				<Button type='submit'>Save Changes</Button>
 				<Button type='button' variant='outline' onClick={onCancel}>

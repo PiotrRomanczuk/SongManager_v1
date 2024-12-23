@@ -95,10 +95,11 @@ app.UseHttpsRedirection();
 // Use CORS
 app.UseCors("AllowReactApp");
 
+app.UseRouting();
+
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.UseRouting();
 app.MapControllers();
 
 // Add a minimal API endpoint for the root path
@@ -108,6 +109,5 @@ app.MapGet("/", () => "Welcome to Songs API - Go to /swagger for API documentati
 await DatabaseInitializer.InitializeDatabaseAsync(app);
 await DatabaseInitializer.EnsureAdminRoleExistsAsync(app);
 await DatabaseInitializer.EnsureRolesCreatedAsync(app);
-
 
 app.Run();

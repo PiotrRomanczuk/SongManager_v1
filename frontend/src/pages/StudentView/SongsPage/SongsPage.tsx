@@ -1,14 +1,14 @@
 'use client';
 
 import { useState, useMemo } from 'react';
-import { Container } from '../../components/ui/container';
-import { Button } from '../../components/ui/button';
-import { useAuth } from '../../contexts/AuthContext';
+import { Container } from '@/components/ui/container';
+import { Button } from '@/components/ui/button';
+import { useAuth } from '@/contexts/AuthContext';
 import { LoadingComponent } from './components/LoadingComponent';
 import { ErrorComponent } from './components/ErrorComponent';
 import { SongsTable } from './components/SongsTable';
 import { SearchComponent } from './components/SearchComponent';
-import { useLoadSongs } from '../../hooks/useLoadSongs';
+import { useLoadSongs } from '@/hooks/useLoadSongs';
 
 export function SongsPage() {
 	const { isAdmin } = useAuth();

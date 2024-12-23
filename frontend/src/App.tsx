@@ -1,7 +1,9 @@
 import { useState } from 'react';
-import { useAuth } from './contexts/AuthContext';
-import StudentMainPage from './pages/SongsPage/StudentMainPage';
-import AuthPage from './pages/RegisterPage/AuthPage';
+import { useAuth } from '@/contexts/AuthContext';
+import StudentMainPage from '@/pages/StudentView/SongsPage/StudentMainPage';
+import AuthPage from '@/pages/RegisterPage/AuthPage';
+import Dashboard from '@/components/Dashboard';
+import NavBar from '@/components/NavBar';
 
 function App() {
 	const [showRegister, setShowRegister] = useState(false);
@@ -13,7 +15,13 @@ function App() {
 		);
 	}
 
-	return <StudentMainPage logout={logout} user={user} />;
+	return (
+		<>
+			<NavBar logout={logout} user={user} />
+			{/* <Dashboard /> */}
+			<StudentMainPage logout={logout} user={user} />
+		</>
+	);
 }
 
 export default App;

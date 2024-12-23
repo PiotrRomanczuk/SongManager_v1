@@ -25,6 +25,13 @@ export interface AuthResponse {
 	roles: string[];
 }
 
+// Utility function to validate GUID
+const isValidGuid = (guid: string) => {
+	const guidRegex =
+		/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+	return guidRegex.test(guid);
+};
+
 export const authApi = {
 	login: async (email: string, password: string) => {
 		const response = await api.post<AuthResponse>('/api/auth/login', {
@@ -52,6 +59,9 @@ export const songsApi = {
 	},
 
 	getSong: async (id: string) => {
+		if (!isValidGuid(id)) {
+			throw new Error('Invalid GUID format');
+		}
 		const response = await api.get<Song>(`/api/songs/${id}`);
 		return response.data;
 	},
@@ -62,11 +72,18 @@ export const songsApi = {
 	},
 
 	updateSong: async (id: string, song: Omit<Song, 'id' | 'createdAt'>) => {
+		if (!isValidGuid(id)) {
+			throw new Error('Invalid GUID format');
+		}
 		const response = await api.put<Song>(`/api/songs/${id}`, song);
+		console.log(response.data);
 		return response.data;
 	},
 
 	deleteSong: async (id: string) => {
+		if (!isValidGuid(id)) {
+			throw new Error('Invalid GUID format');
+		}
 		await api.delete(`/api/songs/${id}`);
 	},
 

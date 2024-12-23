@@ -2,12 +2,12 @@ import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
 import { Song } from 'types/Song';
-import { LoadingComponent } from './songPageComp/LoadingComponent';
-import { ErrorComponent } from './songPageComp/ErrorComponent';
-import { SongDetails } from './songPageComp/SongDetails';
+import { LoadingComponent } from './SongPageComp/LoadingComponent';
+import { ErrorComponent } from './SongPageComp/ErrorComponent';
+import { SongInfo } from './SongPageComp/SongInfo';
 import { useLoadSongs } from '@/hooks/useLoadSongs';
 
-export function SongDetailsPage() {
+export function SongInfoPage() {
 	const { shortTitle } = useParams<{ shortTitle: string }>();
 	const { loading, songs, error } = useLoadSongs();
 	const [song, setSong] = useState<Song | null>(null);
@@ -29,5 +29,5 @@ export function SongDetailsPage() {
 		return <ErrorComponent error='Song not found.' />;
 	}
 
-	return <SongDetails song={song} />;
+	return <SongInfo song={song} />;
 }

@@ -32,9 +32,26 @@ namespace SongsAPI.Controllers
         [AllowAnonymous]
         public async Task<ActionResult<IEnumerable<Song>>> GetSongs()
         {
-            return await _context.Songs
-                .OrderByDescending(s => s.CreatedAt)
-                .ToListAsync();
+            try
+            {
+                var songs = await _context.Songs
+                    .OrderByDescending(s => s.CreatedAt)
+                    .ToListAsync();
+
+                // Console.WriteLine(songs);
+                // Log the IDs of the songs being retrieved
+                foreach (var song in songs)
+                {
+                    _logger.LogInformation("Retrieved song with ID: {Id}", song.Id);
+                }
+
+                return songs;
+            }
+            catch (FormatException ex)
+            {
+                _logger.LogError(ex, "Unrecognized GUID format.");
+                return BadRequest(new { message = "Unrecognized GUID format.", details = ex.Message });
+            }
         }
 
         // GET: api/Songs/{id}
@@ -42,6 +59,7 @@ namespace SongsAPI.Controllers
         [AllowAnonymous]
         public async Task<ActionResult<Song>> GetSong(Guid id)
         {
+            _logger.LogInformation("Processing GetSong with ID: {Id}", id);
             var song = await _context.Songs.FindAsync(id);
 
             if (song == null)
@@ -89,7 +107,7 @@ namespace SongsAPI.Controllers
 
         // PUT: api/Songs/{id}
         [HttpPut("{id}")]
-        [Authorize]
+        // [Authorize]
         public async Task<IActionResult> PutSong(Guid id, Song song)
         {
             if (id != song.Id)
@@ -98,6 +116,7 @@ namespace SongsAPI.Controllers
             }
 
             var existingSong = await _context.Songs.FindAsync(id);
+            Console.WriteLine(existingSong);
             if (existingSong == null)
             {
                 return NotFound();
@@ -106,7 +125,10 @@ namespace SongsAPI.Controllers
             existingSong.Title = song.Title;
             existingSong.Level = song.Level;
             existingSong.SongKey = song.SongKey;
+            existingSong.Chords = song.Chords;
+            existingSong.AudioFiles = song.AudioFiles;
             existingSong.Author = song.Author;
+
             existingSong.UltimateGuitarLink = song.UltimateGuitarLink;
 
             try
@@ -133,6 +155,7 @@ namespace SongsAPI.Controllers
         [Authorize]
         public async Task<IActionResult> DeleteSong(Guid id)
         {
+            _logger.LogInformation("Processing DeleteSong with ID: {Id}", id);
             var song = await _context.Songs.FindAsync(id);
             if (song == null)
             {
