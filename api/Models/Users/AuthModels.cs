@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Identity;
 
 namespace SongsAPI.Models
 {
@@ -39,4 +40,5 @@ namespace SongsAPI.Models
         public string Name { get; set; } = string.Empty;
         public List<string> Roles { get; set; } = new List<string>();
     }
+
 }

@@ -6,6 +6,7 @@ using System.Text;
 using SongsAPI.Data;
 using SongsAPI.Models;
 using SongsAPI.Services;
+using Microsoft.Extensions.Logging;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,6 +22,11 @@ builder.Services.AddSwaggerGen(c =>
         Description = "An API for managing songs"
     });
 });
+
+// Configure logging
+// builder.Logging.ClearProviders();
+// builder.Logging.AddConsole();
+// builder.Logging.AddFilter("Logs/songsapi-{Date}.txt"); // Requires a logging provider like Serilog or NLog
 
 // Add DbContext
 builder.Services.AddDbContext<ApplicationDbContext>(options =>

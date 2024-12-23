@@ -9,7 +9,7 @@ namespace SongsAPI.Data
         public static async Task Initialize(ApplicationDbContext context, SongImportService songImportService)
         {
             // Check if we already have songs
-            if (context.Songs.Any())
+            if (context.Songs == null || context.Songs.Any())
             {
                 return;   // DB has been seeded
             }

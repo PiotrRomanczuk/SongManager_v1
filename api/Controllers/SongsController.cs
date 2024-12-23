@@ -14,16 +14,13 @@ namespace SongsAPI.Controllers
     public class SongsController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
-        private readonly SongImportService _importService;
         private readonly ILogger<SongsController> _logger;
 
         public SongsController(
             ApplicationDbContext context,
-            SongImportService importService,
             ILogger<SongsController> logger)
         {
             _context = context;
-            _importService = importService;
             _logger = logger;
         }
 
@@ -34,18 +31,27 @@ namespace SongsAPI.Controllers
         {
             try
             {
+                if (_context.Songs == null)
+                {
+                    return NotFound();
+                }
+
                 var songs = await _context.Songs
                     .OrderByDescending(s => s.CreatedAt)
                     .ToListAsync();
 
-                // Console.WriteLine(songs);
+                if (songs == null || !songs.Any())
+                {
+                    return NotFound();
+                }
+
                 // Log the IDs of the songs being retrieved
                 foreach (var song in songs)
                 {
                     _logger.LogInformation("Retrieved song with ID: {Id}", song.Id);
                 }
 
-                return songs;
+                return Ok(songs);
             }
             catch (FormatException ex)
             {
@@ -60,6 +66,11 @@ namespace SongsAPI.Controllers
         public async Task<ActionResult<Song>> GetSong(Guid id)
         {
             _logger.LogInformation("Processing GetSong with ID: {Id}", id);
+            if (_context.Songs == null)
+            {
+                return NotFound();
+            }
+
             var song = await _context.Songs.FindAsync(id);
 
             if (song == null)
@@ -67,7 +78,7 @@ namespace SongsAPI.Controllers
                 return NotFound();
             }
 
-            return song;
+            return Ok(song);
         }
 
         // POST: api/Songs
@@ -76,34 +87,16 @@ namespace SongsAPI.Controllers
         public async Task<ActionResult<Song>> PostSong(Song song)
         {
             song.CreatedAt = DateTime.UtcNow;
+            if (_context.Songs == null)
+            {
+                return Problem("Entity set 'ApplicationDbContext.Songs' is null.");
+            }
             _context.Songs.Add(song);
             await _context.SaveChangesAsync();
 
             return CreatedAtAction(nameof(GetSong), new { id = song.Id }, song);
         }
 
-        // POST: api/Songs/import
-        [HttpPost("import")]
-        [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> ImportSongs()
-        {
-            try
-            {
-                var filePath = Path.Combine(Directory.GetCurrentDirectory(), "songs_rows.csv");
-                if (!System.IO.File.Exists(filePath))
-                {
-                    return BadRequest("CSV file not found");
-                }
-
-                await _importService.ImportSongsFromCsv(filePath);
-                return Ok("Songs imported successfully");
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Error importing songs");
-                return StatusCode(500, "Error importing songs");
-            }
-        }
 
         // PUT: api/Songs/{id}
         [HttpPut("{id}")]
@@ -115,8 +108,11 @@ namespace SongsAPI.Controllers
                 return BadRequest();
             }
 
+            if (_context.Songs == null)
+            {
+                return NotFound();
+            }
             var existingSong = await _context.Songs.FindAsync(id);
-            Console.WriteLine(existingSong);
             if (existingSong == null)
             {
                 return NotFound();
@@ -128,7 +124,6 @@ namespace SongsAPI.Controllers
             existingSong.Chords = song.Chords;
             existingSong.AudioFiles = song.AudioFiles;
             existingSong.Author = song.Author;
-
             existingSong.UltimateGuitarLink = song.UltimateGuitarLink;
 
             try
@@ -156,6 +151,10 @@ namespace SongsAPI.Controllers
         public async Task<IActionResult> DeleteSong(Guid id)
         {
             _logger.LogInformation("Processing DeleteSong with ID: {Id}", id);
+            if (_context.Songs == null)
+            {
+                return NotFound();
+            }
             var song = await _context.Songs.FindAsync(id);
             if (song == null)
             {
@@ -170,7 +169,7 @@ namespace SongsAPI.Controllers
 
         private bool SongExists(Guid id)
         {
-            return _context.Songs.Any(e => e.Id == id);
+            return _context.Songs?.Any(e => e.Id == id) ?? false;
         }
     }
 }

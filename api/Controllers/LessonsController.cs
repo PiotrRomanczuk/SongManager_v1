@@ -23,6 +23,11 @@ namespace SongsAPI.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Lesson>>> GetLessons()
         {
+            if (_context.Lessons == null)
+            {
+                return NotFound();
+            }
+
             return await _context.Lessons
                 .Include(l => l.Teacher)
                 .Include(l => l.Students)
@@ -34,6 +39,10 @@ namespace SongsAPI.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Lesson>> GetLesson(int id)
         {
+            if (_context.Lessons == null)
+            {
+                return NotFound();
+            }
             var lesson = await _context.Lessons
                 .Include(l => l.Teacher)
                 .Include(l => l.Students)
@@ -52,6 +61,10 @@ namespace SongsAPI.Controllers
         [HttpPost]
         public async Task<ActionResult<Lesson>> PostLesson(Lesson lesson)
         {
+            if (_context.Lessons == null)
+            {
+                return NotFound();
+            }
             _context.Lessons.Add(lesson);
             await _context.SaveChangesAsync();
 
@@ -89,6 +102,10 @@ namespace SongsAPI.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteLesson(int id)
         {
+            if (_context.Lessons == null)
+            {
+                return NotFound();
+            }
             var lesson = await _context.Lessons.FindAsync(id);
             if (lesson == null)
             {
@@ -105,6 +122,11 @@ namespace SongsAPI.Controllers
         [HttpPost("{lessonId}/students/{studentId}")]
         public async Task<IActionResult> AddStudentToLesson(int lessonId, string studentId)
         {
+
+            if (_context.Lessons == null)
+            {
+                return NotFound();
+            }
             var lesson = await _context.Lessons
                 .Include(l => l.Students)
                 .FirstOrDefaultAsync(l => l.Id == lessonId);
@@ -133,6 +155,10 @@ namespace SongsAPI.Controllers
         [HttpDelete("{lessonId}/students/{studentId}")]
         public async Task<IActionResult> RemoveStudentFromLesson(int lessonId, string studentId)
         {
+            if (_context.Lessons == null)
+            {
+                return NotFound();
+            }
             var lesson = await _context.Lessons
                 .Include(l => l.Students)
                 .FirstOrDefaultAsync(l => l.Id == lessonId);
@@ -158,6 +184,10 @@ namespace SongsAPI.Controllers
         [HttpPost("{lessonId}/songs/{songId}")]
         public async Task<IActionResult> AddSongToLesson(int lessonId, Guid songId)
         {
+            if (_context.Lessons == null)
+            {
+                return NotFound();
+            }
             var lesson = await _context.Lessons
                 .Include(l => l.Songs)
                 .FirstOrDefaultAsync(l => l.Id == lessonId);
@@ -167,6 +197,10 @@ namespace SongsAPI.Controllers
                 return NotFound("Lesson not found");
             }
 
+            if (_context.Songs == null)
+            {
+                return NotFound();
+            }
             var song = await _context.Songs.FindAsync(songId);
 
             if (song == null)
@@ -189,6 +223,11 @@ namespace SongsAPI.Controllers
         [HttpDelete("{lessonId}/songs/{songId}")]
         public async Task<IActionResult> RemoveSongFromLesson(int lessonId, Guid songId)
         {
+
+            if (_context.Lessons == null)
+            {
+                return NotFound();
+            }
             var lesson = await _context.Lessons
                 .Include(l => l.Songs)
                 .FirstOrDefaultAsync(l => l.Id == lessonId);
@@ -212,6 +251,10 @@ namespace SongsAPI.Controllers
 
         private bool LessonExists(int id)
         {
+            if (_context.Lessons == null)
+            {
+                return false;
+            }
             return _context.Lessons.Any(e => e.Id == id);
         }
     }

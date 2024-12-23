@@ -20,13 +20,21 @@ namespace SongsAPI.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Teacher>>> GetTeachers()
         {
-            return await _context.Teachers.Include(t => t.Lessons).ToListAsync();
+            return _context.Teachers != null
+                ? await _context.Teachers.Include(t => t.Lessons).ToListAsync()
+                : NotFound();
         }
 
         // GET: api/Teachers/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Teacher>> GetTeacher(int id)
         {
+            if (_context.Teachers == null)
+            {
+                return NotFound();
+            }
+
+
             var teacher = await _context.Teachers
                 .Include(t => t.Lessons)
                 .FirstOrDefaultAsync(t => t.Id == id);
@@ -36,13 +44,38 @@ namespace SongsAPI.Controllers
                 return NotFound();
             }
 
-            return teacher;
+            return Ok(teacher);
+        }
+
+        // GET: api/Teachers/5/lessons
+        [HttpGet("{id}/lessons")]
+        public async Task<IActionResult> GetTeacherLessons(int id)
+        {
+            if (_context.Teachers == null)
+            {
+                return NotFound();
+            }
+            var teacher = await _context.Teachers
+                .Include(t => t.Lessons)
+                .FirstOrDefaultAsync(t => t.Id == id);
+
+            if (teacher == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(teacher.Lessons);
         }
 
         // POST: api/Teachers
         [HttpPost]
         public async Task<ActionResult<Teacher>> PostTeacher(Teacher teacher)
         {
+            if (_context.Teachers == null)
+            {
+                return NotFound();
+            }
+
             _context.Teachers.Add(teacher);
             await _context.SaveChangesAsync();
 
@@ -80,6 +113,11 @@ namespace SongsAPI.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteTeacher(int id)
         {
+
+            if (_context.Teachers == null)
+            {
+                return NotFound();
+            }
             var teacher = await _context.Teachers.FindAsync(id);
             if (teacher == null)
             {
@@ -93,7 +131,12 @@ namespace SongsAPI.Controllers
         }
 
         private bool TeacherExists(int id)
+
         {
+            if (_context.Teachers == null)
+            {
+                return false;
+            }
             return _context.Teachers.Any(e => e.Id == id);
         }
     }

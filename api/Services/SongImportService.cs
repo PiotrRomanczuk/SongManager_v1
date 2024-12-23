@@ -36,6 +36,13 @@ namespace SongsAPI.Services
                 song.Id = song.Id == Guid.Empty ? Guid.NewGuid() : song.Id;
                 song.CreatedAt = song.CreatedAt == default ? DateTime.UtcNow : song.CreatedAt;
 
+
+                if (_context.Songs == null)
+                {
+                    _logger.LogError("Songs DbSet is null");
+                    throw new InvalidOperationException("Songs DbSet is null");
+                }
+
                 var existingSong = await _context.Songs
                     .FirstOrDefaultAsync(s => s.Title == song.Title);
 
@@ -92,6 +99,27 @@ namespace SongsAPI.Services
                 _logger.LogError(ex, "Error importing songs from CSV stream");
                 throw;
             }
+        }
+
+        public async Task<Song?> ImportSongAsync(string songTitle)
+        {
+            if (_context.Songs == null)
+            {
+                _logger.LogError("Songs DbSet is null");
+                throw new InvalidOperationException("Songs DbSet is null");
+            }
+
+            var song = await _context.Songs
+                .FirstOrDefaultAsync(s => s.Title == songTitle);
+
+            if (song == null)
+            {
+                return null;
+            }
+
+            // ...existing code...
+
+            return song;
         }
     }
 }

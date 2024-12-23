@@ -3,11 +3,13 @@ using Microsoft.AspNetCore.Identity;
 
 namespace SongsAPI.Models
 {
-    public class Student : IdentityUser
+    public class Student : User
     {
         [Required]
         [StringLength(100)]
-        public string Name { get; set; } = string.Empty;
+        public new string Name { get; set; } = string.Empty;
+        public Boolean isAdmin { get; set; } = false;
+
 
         // Navigation property for songs
         public virtual ICollection<Song> FavoriteSongs { get; set; } = new List<Song>();

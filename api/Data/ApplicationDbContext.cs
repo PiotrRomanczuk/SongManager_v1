@@ -1,19 +1,21 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using SongsAPI.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace SongsAPI.Data
 {
-    public class ApplicationDbContext : IdentityDbContext<Student>
+    public class ApplicationDbContext : IdentityDbContext<IdentityUser>
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
         }
 
-        public DbSet<Song> Songs { get; set; }
-        public DbSet<Teacher> Teachers { get; set; }
-        public DbSet<Lesson> Lessons { get; set; }
+        public DbSet<Song>? Songs { get; set; }
+        public DbSet<Student>? Students { get; set; }
+        public DbSet<Teacher>? Teachers { get; set; }
+        public DbSet<Lesson>? Lessons { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -39,9 +41,9 @@ namespace SongsAPI.Data
 
             // Configure one-to-many relationship between Teacher and Lesson
             modelBuilder.Entity<Lesson>()
-                .HasOne(l => l.Teacher)
-                .WithMany(t => t.Lessons)
-                .HasForeignKey(l => l.TeacherId)
+                .HasOne(t => t.Teacher)
+                .WithMany(l => l.Lessons)
+                .HasForeignKey(t => t.TeacherId)
                 .OnDelete(DeleteBehavior.Cascade);
         }
     }

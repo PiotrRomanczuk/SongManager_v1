@@ -72,6 +72,9 @@ namespace SongsAPI.Controllers
         [HttpPost("AddFavoriteSong/{songId}")]
         public async Task<IActionResult> AddFavoriteSong(int songId)
         {
+
+
+
             var userId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
             if (userId == null)
             {
@@ -84,6 +87,10 @@ namespace SongsAPI.Controllers
                 return NotFound("Student not found");
             }
 
+            if (_context.Songs == null)
+            {
+                return NotFound();
+            }
             var song = await _context.Songs.FindAsync(songId);
             if (song == null)
             {
@@ -112,6 +119,11 @@ namespace SongsAPI.Controllers
                 return NotFound("Student not found");
             }
 
+
+            if (_context.Songs == null)
+            {
+                return NotFound();
+            }
             var song = await _context.Songs.FindAsync(songId);
             if (song == null)
             {
