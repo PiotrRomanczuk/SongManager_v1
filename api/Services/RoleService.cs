@@ -5,12 +5,12 @@ namespace SongsAPI.Services
 {
     public class RoleService
     {
-        private readonly UserManager<Student> _userManager;
+        private readonly UserManager<User> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly ILogger<RoleService> _logger;
 
         public RoleService(
-            UserManager<Student> userManager,
+            UserManager<User> userManager,
             RoleManager<IdentityRole> roleManager,
             ILogger<RoleService> logger)
         {
@@ -31,7 +31,7 @@ namespace SongsAPI.Services
                 }
 
                 // Find piotr
-                var piotr = await _userManager.FindByNameAsync("piotr");
+                var piotr = await _userManager.FindByEmailAsync("p.romanczuk@gmail.com");
                 if (piotr == null)
                 {
                     _logger.LogWarning("User 'piotr' not found");

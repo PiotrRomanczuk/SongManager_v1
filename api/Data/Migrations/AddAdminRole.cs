@@ -13,18 +13,18 @@ namespace SongsAPI.Data.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "Name", "NormalizedName", "ConcurrencyStamp" },
-                values: new object[] { 
-                    "1", 
-                    "Admin", 
+                values: new object[] {
+                    "1",
+                    "Admin",
                     "ADMIN",
-                    Guid.NewGuid().ToString() 
+                    Guid.NewGuid().ToString()
                 }
             );
 
             // Find piotr's user ID
             var userIdSql = @"
                 SELECT Id FROM AspNetUsers 
-                WHERE UserName = 'piotr'
+                WHERE email = 'p.romanczuk@gmail.com'
                 LIMIT 1";
 
             var userId = migrationBuilder.Sql(userIdSql);
@@ -37,21 +37,21 @@ namespace SongsAPI.Data.Migrations
             );
         }
 
-        protected override void Down(MigrationBuilder migrationBuilder)
-        {
-            // Remove piotr from Admin role
-            migrationBuilder.Sql(@"
-                DELETE FROM AspNetUserRoles 
-                WHERE RoleId = '1' AND UserId IN (
-                    SELECT Id FROM AspNetUsers WHERE UserName = 'piotr'
-                )");
+        // protected override void Down(MigrationBuilder migrationBuilder)
+        // {
+        //     // Remove piotr from Admin role
+        //     migrationBuilder.Sql(@"
+        //         DELETE FROM AspNetUserRoles 
+        //         WHERE RoleId = '1' AND UserId IN (
+        //             SELECT Id FROM AspNetUsers WHERE UserName = 'piotr'
+        //         )");
 
-            // Delete Admin role
-            migrationBuilder.DeleteData(
-                table: "AspNetRoles",
-                keyColumn: "Id",
-                keyValue: "1"
-            );
-        }
+        //     // Delete Admin role
+        //     migrationBuilder.DeleteData(
+        //         table: "AspNetRoles",
+        //         keyColumn: "Id",
+        //         keyValue: "1"
+        //     );
+        // }
     }
 }
