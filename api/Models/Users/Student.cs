@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Identity;
 
-namespace SongsAPI.Models
+namespace SongsAPI.Models.Users
 {
     public class Student : User
     {

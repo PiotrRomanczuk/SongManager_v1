@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Identity;
-using SongsAPI.Models;
+using SongsAPI.Models.Users;
 
 namespace SongsAPI.Services
 {
@@ -48,7 +48,7 @@ namespace SongsAPI.Services
                     }
                     else
                     {
-                        _logger.LogError("Failed to add user 'piotr' to Admin role: {Errors}", 
+                        _logger.LogError("Failed to add user 'piotr' to Admin role: {Errors}",
                             string.Join(", ", result.Errors.Select(e => e.Description)));
                     }
                 }

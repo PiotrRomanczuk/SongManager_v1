@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SongsAPI.Data;
 using SongsAPI.Models;
+using SongsAPI.Models.Users;
 using SongsAPI.Services;
 using Microsoft.AspNetCore.Authorization;
 using System.IO;

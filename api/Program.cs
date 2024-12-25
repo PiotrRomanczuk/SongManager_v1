@@ -4,8 +4,9 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using SongsAPI.Data;
-using SongsAPI.Models;
+using SongsAPI.Models.Users;
 using SongsAPI.Services;
+using Serilog;
 using Microsoft.Extensions.Logging;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -82,6 +83,21 @@ builder.Services.AddCors(options =>
             .AllowAnyHeader());
 });
 
+
+builder.Logging.ClearProviders();
+builder.Logging.AddConsole();
+builder.Logging.AddFilter("Microsoft", LogLevel.Warning);
+builder.Logging.AddFilter("System", LogLevel.Warning);
+
+Log.Logger = new LoggerConfiguration()
+    .WriteTo.Console()
+    .CreateLogger();
+
+builder.Services.AddSerilog();
+
+
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -107,6 +123,8 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+
+
 
 // Add a minimal API endpoint for the root path
 app.MapGet("/", () => "Welcome to Songs API - Go to /swagger for API documentation");

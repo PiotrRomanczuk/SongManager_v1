@@ -2,7 +2,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using Microsoft.IdentityModel.Tokens;
-using SongsAPI.Models;
+using SongsAPI.Models.Users;
 
 namespace SongsAPI.Services
 {
@@ -15,17 +15,17 @@ namespace SongsAPI.Services
             _configuration = configuration;
         }
 
-        public virtual string GenerateJwtToken(Student student)
+        public virtual string GenerateJwtToken(User user)
         {
             var claims = new List<Claim>
             {
-                new Claim(ClaimTypes.NameIdentifier, student.Id),
-                new Claim(ClaimTypes.Name, student.Name),
-                new Claim(ClaimTypes.Email, student.Email ?? string.Empty)
+                new Claim(ClaimTypes.NameIdentifier, user.Id),
+                new Claim(ClaimTypes.Name, user.Name),
+                new Claim(ClaimTypes.Email, user.Email ?? string.Empty)
             };
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(
-                _configuration["JwtSettings:SecretKey"] ?? 
+                _configuration["JwtSettings:SecretKey"] ??
                 throw new InvalidOperationException("JWT Secret Key not found in configuration")));
 
             var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);

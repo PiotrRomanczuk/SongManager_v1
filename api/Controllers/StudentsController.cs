@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using SongsAPI.Data;
-using SongsAPI.Models;
+using SongsAPI.Models.Users;
 using Microsoft.AspNetCore.Authorization;
 
 namespace SongsAPI.Controllers
@@ -43,6 +43,7 @@ namespace SongsAPI.Controllers
         }
 
         // PUT: api/Students/5
+        // Update Student
         [HttpPut("{id}")]
         public async Task<IActionResult> PutStudent(string id, Student student)
         {
