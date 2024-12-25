@@ -34,7 +34,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 // Add Identity
-builder.Services.AddIdentity<Student, IdentityRole>(options =>
+builder.Services.AddIdentity<User, IdentityRole>(options =>
 {
     options.Password.RequireDigit = true;
     options.Password.RequireLowercase = true;
@@ -44,6 +44,13 @@ builder.Services.AddIdentity<Student, IdentityRole>(options =>
 })
 .AddEntityFrameworkStores<ApplicationDbContext>()
 .AddDefaultTokenProviders();
+
+// Register UserManager and RoleManager
+builder.Services.AddScoped<UserManager<User>>();
+builder.Services.AddScoped<RoleManager<IdentityRole>>();
+
+// Register RoleService dependencies
+builder.Services.AddScoped<RoleService>();
 
 // Add JWT Authentication
 builder.Services.AddAuthentication(options =>
@@ -68,10 +75,9 @@ builder.Services.AddAuthentication(options =>
     };
 });
 
-// Add Scopes for Token Service, SongImportService, RoleService
+// Add Scopes for Token Service, SongImportService
 builder.Services.AddScoped<TokenService>();
 builder.Services.AddScoped<SongImportService>();
-builder.Services.AddScoped<RoleService>();
 
 // Add CORS
 builder.Services.AddCors(options =>
