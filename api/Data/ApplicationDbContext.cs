@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace SongsAPI.Data
 {
-    public class ApplicationDbContext : IdentityDbContext<User>
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
@@ -42,10 +42,11 @@ namespace SongsAPI.Data
 
             // Configure one-to-many relationship between Teacher and Lesson
             modelBuilder.Entity<Lesson>()
-                .HasOne(t => t.Teacher)
-                .WithMany(l => l.Lessons)
-                .HasForeignKey(t => t.TeacherId)
+                .HasOne(l => l.Teacher)
+                .WithMany(t => t.Lessons)
+                .HasForeignKey(l => l.TeacherId)
                 .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }
+

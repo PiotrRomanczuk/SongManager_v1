@@ -2,10 +2,8 @@ using System.ComponentModel.DataAnnotations;
 
 namespace SongsAPI.Models.Users;
 
-public class Teacher : User
+public class Teacher : ApplicationUser
 {
-    public new int Id { get; set; }
-
     [Required]
     [StringLength(100)]
     public new string Name { get; set; } = string.Empty;

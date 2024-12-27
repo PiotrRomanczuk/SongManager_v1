@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace SongsAPI.Models.Users
 {
-    public class Student : User
+    public class Student : ApplicationUser
     {
         [Required]
         [StringLength(100)]

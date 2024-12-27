@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Identity;
 
-public class User : IdentityUser<string>
+public class ApplicationUser : IdentityUser
 {
     [Required]
     [StringLength(100)]
@@ -14,4 +14,7 @@ public class User : IdentityUser<string>
     [Required]
     [StringLength(100, MinimumLength = 6)]
     public string Password { get; set; } = string.Empty;
+
+    // Add the Discriminator property
+    public string Discriminator { get; set; } = string.Empty;
 }

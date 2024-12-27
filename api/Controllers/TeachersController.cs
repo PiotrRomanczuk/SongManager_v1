@@ -27,7 +27,7 @@ namespace SongsAPI.Controllers
 
         // GET: api/Teachers/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Teacher>> GetTeacher(int id)
+        public async Task<ActionResult<Teacher>> GetTeacher(string id)
         {
             if (_context.Teachers == null)
             {
@@ -49,7 +49,7 @@ namespace SongsAPI.Controllers
 
         // GET: api/Teachers/5/lessons
         [HttpGet("{id}/lessons")]
-        public async Task<IActionResult> GetTeacherLessons(int id)
+        public async Task<IActionResult> GetTeacherLessons(string id)
         {
             if (_context.Teachers == null)
             {
@@ -84,7 +84,7 @@ namespace SongsAPI.Controllers
 
         // PUT: api/Teachers/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutTeacher(int id, Teacher teacher)
+        public async Task<IActionResult> PutTeacher(string id, Teacher teacher)
         {
             if (id != teacher.Id)
             {
@@ -111,7 +111,7 @@ namespace SongsAPI.Controllers
 
         // DELETE: api/Teachers/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteTeacher(int id)
+        public async Task<IActionResult> DeleteTeacher(string id)
         {
 
             if (_context.Teachers == null)
@@ -130,7 +130,7 @@ namespace SongsAPI.Controllers
             return NoContent();
         }
 
-        private bool TeacherExists(int id)
+        private bool TeacherExists(string id)
 
         {
             if (_context.Teachers == null)

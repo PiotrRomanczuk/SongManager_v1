@@ -17,7 +17,7 @@ namespace SongsAPI.Models.Users
         public string Description { get; set; } = string.Empty;
 
         // Foreign key for Teacher
-        public int TeacherId { get; set; }
+        public required string TeacherId { get; set; }
         public Teacher Teacher { get; set; } = null!;
 
         // Navigation property for students
