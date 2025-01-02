@@ -15,7 +15,8 @@ namespace SongsAPI.Data
             }
 
             // Import songs from CSV
-            var csvPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "songs_rows.csv");
+            var csvPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..", "..", "songs_rows.csv");
+            Console.WriteLine($"CSV path: {csvPath}");
             if (File.Exists(csvPath))
             {
                 using var stream = File.OpenRead(csvPath);

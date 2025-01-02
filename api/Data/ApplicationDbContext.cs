@@ -11,6 +11,7 @@ namespace SongsAPI.Data
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
+            this.Database.EnsureCreated();
         }
 
         public DbSet<Song>? Songs { get; set; }
@@ -46,7 +47,14 @@ namespace SongsAPI.Data
                 .WithMany(t => t.Lessons)
                 .HasForeignKey(l => l.TeacherId)
                 .OnDelete(DeleteBehavior.Cascade);
+
         }
     }
 }
 
+
+// Konfiguracja tabeli Customer
+// modelBuilder.Entity<Student>().HasDiscriminator<Student.Status>("CLASS_TYPE")
+//                .HasValue<BaseClass>(BaseClass.Status.OK)
+//                .HasValue<DerivedClass1>(BaseClass.Status.NOT1)
+//                .HasValue<DerivedClass2>(BaseClass.Status.NOT2);

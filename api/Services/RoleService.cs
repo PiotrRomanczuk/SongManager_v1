@@ -31,16 +31,16 @@ namespace SongsAPI.Services
                     _logger.LogInformation("Admin role created successfully");
                 }
 
-                // Log the user manager instance
-                _logger.LogInformation("UserManager instance: {UserManager}", _userManager);
+                Console.WriteLine(_userManager);
 
-                // Log every user in the _userManager
-                foreach (var user in _userManager.Users)
-                {
-                    _logger.LogInformation("User: {User}", user);
-                }
+                // Write a function that console write every use in a _userManager
+                // foreach (var user in _userManager.Users)
+                // {
+                //     Console.WriteLine(user);
+                // }
 
-                // Find user 'piotr'
+                // Find piotr
+
                 var piotr = await _userManager.FindByIdAsync("db6a0539-04f6-43ca-8300-f5789cc57506");
                 if (piotr == null)
                 {
@@ -48,7 +48,7 @@ namespace SongsAPI.Services
                     return;
                 }
 
-                // Add 'piotr' to Admin role if not already in it
+                // Add piotr to Admin role if not already in it
                 if (!await _userManager.IsInRoleAsync(piotr, "Admin"))
                 {
                     var result = await _userManager.AddToRoleAsync(piotr, "Admin");
@@ -62,11 +62,6 @@ namespace SongsAPI.Services
                             string.Join(", ", result.Errors.Select(e => e.Description)));
                     }
                 }
-            }
-            catch (Microsoft.Data.Sqlite.SqliteException ex) when (ex.SqliteErrorCode == 1 && ex.Message.Contains("no such column: a.Discriminator"))
-            {
-                _logger.LogError(ex, "SQLite Error: 'no such column: a.Discriminator'. Ensure your migrations are up to date.");
-                throw;
             }
             catch (Exception ex)
             {
