@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace SongsAPI.Models
+namespace SongsAPI.Models.Users
 {
     public class Teacher
     {

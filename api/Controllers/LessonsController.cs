@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using SongsAPI.Data;
 using SongsAPI.Models;
+using SongsAPI.Models.Users;
 
 namespace SongsAPI.Controllers
 {

@@ -2,7 +2,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using Microsoft.IdentityModel.Tokens;
-using SongsAPI.Models;
+using SongsAPI.Models.Users;
 
 namespace SongsAPI.Services
 {
@@ -25,7 +25,7 @@ namespace SongsAPI.Services
             };
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(
-                _configuration["JwtSettings:SecretKey"] ?? 
+                _configuration["JwtSettings:SecretKey"] ??
                 throw new InvalidOperationException("JWT Secret Key not found in configuration")));
 
             var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);

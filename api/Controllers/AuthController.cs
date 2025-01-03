@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using SongsAPI.Models;
+using SongsAPI.Models.Users;
 using SongsAPI.Services;
 
 namespace SongsAPI.Controllers

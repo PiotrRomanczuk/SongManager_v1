@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using SongsAPI.Models.Users;
 
 namespace SongsAPI.Models
 {

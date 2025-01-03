@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.Collections.Generic;
 
-namespace SongsAPI.Models
+namespace SongsAPI.Models.Users
 {
     public class RegisterModel
     {

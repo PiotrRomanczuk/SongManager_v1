@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using SongsAPI.Models;
+using SongsAPI.Models.Users;
 
 namespace SongsAPI.Data
 {

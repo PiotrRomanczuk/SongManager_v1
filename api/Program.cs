@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using SongsAPI.Data;
-using SongsAPI.Models;
+using SongsAPI.Models.Users;
 using SongsAPI.Services;
 
 var builder = WebApplication.CreateBuilder(args);
