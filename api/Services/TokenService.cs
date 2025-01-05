@@ -15,13 +15,13 @@ namespace SongsAPI.Services
             _configuration = configuration;
         }
 
-        public virtual string GenerateJwtToken(Student student)
+        public virtual string GenerateJwtToken(ApplicationUser user)
         {
             var claims = new List<Claim>
             {
-                new Claim(ClaimTypes.NameIdentifier, student.Id),
-                new Claim(ClaimTypes.Name, student.Name),
-                new Claim(ClaimTypes.Email, student.Email ?? string.Empty)
+                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+                new Claim(ClaimTypes.Name, user.Name),
+                new Claim(ClaimTypes.Email, user.Email ?? string.Empty)
             };
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(

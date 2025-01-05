@@ -5,20 +5,29 @@ using SongsAPI.Models.Users;
 
 namespace SongsAPI.Data
 {
-    public class ApplicationDbContext : IdentityDbContext<Student>
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser> // Changed from Student to ApplicationUser
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
         }
 
+        public DbSet<ApplicationUser> AppUsers { get; set; }
         public DbSet<Song> Songs { get; set; }
+        public DbSet<Student> Students { get; set; }
         public DbSet<Teacher> Teachers { get; set; }
         public DbSet<Lesson> Lessons { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
+            // Configure ApplicationUser entity
+            modelBuilder.Entity<ApplicationUser>(entity =>
+            {
+                entity.ToTable("AppUsers");
+                entity.HasKey(e => e.Id);
+            });
 
             // Configure many-to-many relationship between Student and Song
             modelBuilder.Entity<Student>()
@@ -44,6 +53,11 @@ namespace SongsAPI.Data
                 .WithMany(t => t.Lessons)
                 .HasForeignKey(l => l.TeacherId)
                 .OnDelete(DeleteBehavior.Cascade);
+
+            // Configure Teacher Id as primary key
+            modelBuilder.Entity<Teacher>()
+                .HasKey(t => t.Id);
+            // .WithMany(student => student.Teachers);
         }
     }
 }

@@ -6,15 +6,17 @@ using System.Text;
 using SongsAPI.Data;
 using SongsAPI.Models.Users;
 using SongsAPI.Services;
+using Microsoft.Extensions.Logging;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen(c =>
+builder.Services.AddSwaggerGen(docs =>
 {
-    c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo
+    docs.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo
     {
         Title = "Songs API",
         Version = "v1",
@@ -22,21 +24,29 @@ builder.Services.AddSwaggerGen(c =>
     });
 });
 
+// Configure logging
+builder.Logging.ClearProviders();
+builder.Logging.AddConsole();
+// builder.Logging.AddFilter("Logs/songsapi-{Date}.txt"); // Requires a logging provider like Serilog or NLog
+
 // Add DbContext
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 // Add Identity
-builder.Services.AddIdentity<Student, IdentityRole>(options =>
+builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
 {
     options.Password.RequireDigit = true;
-    options.Password.RequireLowercase = true;
-    options.Password.RequireUppercase = true;
-    options.Password.RequireNonAlphanumeric = true;
-    options.Password.RequiredLength = 6;
+    // options.Password.RequireLowercase = true;
+    // options.Password.RequireUppercase = true;
+    // options.Password.RequireNonAlphanumeric = true;
+    // options.Password.RequiredLength = 6;
 })
 .AddEntityFrameworkStores<ApplicationDbContext>()
 .AddDefaultTokenProviders();
+
+// Register UserManager<Student>
+builder.Services.AddScoped<UserManager<ApplicationUser>>();
 
 // Add JWT Authentication
 builder.Services.AddAuthentication(options =>
@@ -95,19 +105,35 @@ app.UseHttpsRedirection();
 // Use CORS
 app.UseCors("AllowReactApp");
 
+app.UseRouting();
+
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.UseRouting();
 app.MapControllers();
 
 // Add a minimal API endpoint for the root path
 app.MapGet("/", () => "Welcome to Songs API - Go to /swagger for API documentation");
 
 // Initialize Database
-await DatabaseInitializer.InitializeDatabaseAsync(app);
-await DatabaseInitializer.EnsureAdminRoleExistsAsync(app);
-await DatabaseInitializer.EnsureRolesCreatedAsync(app);
-
+try
+{
+    await DatabaseInitializer.InitializeDatabaseAsync(app);
+    // await DatabaseInitializer.EnsureAdminRoleExistsAsync(app);
+    await DatabaseInitializer.EnsureRolesCreatedAsync(app);
+}
+catch (Exception ex)
+{
+    var logger = app.Services.GetRequiredService<ILogger<Program>>();
+    logger.LogError(ex, "An error occurred while initializing the database.");
+    if (ex is AggregateException aggregateException)
+    {
+        foreach (var innerException in aggregateException.InnerExceptions)
+        {
+            logger.LogError(innerException, "An inner exception occurred.");
+        }
+    }
+    throw;
+}
 
 app.Run();

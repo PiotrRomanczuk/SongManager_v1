@@ -5,17 +5,17 @@ using SongsAPI.Services;
 
 namespace SongsAPI.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/techer/[controller]")]
     [ApiController]
-    public class AuthController : ControllerBase
+    public class TeacherAuthController : ControllerBase
     {
-        private readonly UserManager<Student> _userManager;
-        private readonly SignInManager<Student> _signInManager;
+        private readonly UserManager<Teacher> _userManager;
+        private readonly SignInManager<Teacher> _signInManager;
         private readonly TokenService _tokenService;
 
-        public AuthController(
-            UserManager<Student> userManager,
-            SignInManager<Student> signInManager,
+        public TeacherAuthController(
+            UserManager<Teacher> userManager,
+            SignInManager<Teacher> signInManager,
             TokenService tokenService)
         {
             _userManager = userManager;
@@ -23,7 +23,7 @@ namespace SongsAPI.Controllers
             _tokenService = tokenService;
         }
 
-        private async Task<ActionResult<AuthResponse>> GenerateAuthResponse(Student user)
+        private async Task<ActionResult<AuthResponse>> GenerateAuthResponse(Teacher user)
         {
             var roles = await _userManager.GetRolesAsync(user) ?? new List<string>();
             var token = _tokenService.GenerateJwtToken(user);
@@ -40,7 +40,7 @@ namespace SongsAPI.Controllers
         [HttpPost("register")]
         public async Task<ActionResult<AuthResponse>> Register(RegisterModel model)
         {
-            var user = new Student
+            var user = new Teacher
             {
                 UserName = model.Email,
                 Email = model.Email,
@@ -53,7 +53,7 @@ namespace SongsAPI.Controllers
                 return BadRequest(result.Errors);
             }
 
-            var addRoleResult = await _userManager.AddToRoleAsync(user, "Student");
+            var addRoleResult = await _userManager.AddToRoleAsync(user, "Teacher");
             if (!addRoleResult.Succeeded)
             {
                 return BadRequest(addRoleResult.Errors);
@@ -85,6 +85,5 @@ namespace SongsAPI.Controllers
 
             return Unauthorized("Invalid email or password");
         }
-
     }
 }

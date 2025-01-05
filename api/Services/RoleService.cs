@@ -5,12 +5,12 @@ namespace SongsAPI.Services
 {
     public class RoleService
     {
-        private readonly UserManager<Student> _userManager;
+        private readonly UserManager<ApplicationUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly ILogger<RoleService> _logger;
 
         public RoleService(
-            UserManager<Student> userManager,
+            UserManager<ApplicationUser> userManager,
             RoleManager<IdentityRole> roleManager,
             ILogger<RoleService> logger)
         {

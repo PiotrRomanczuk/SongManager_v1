@@ -1,20 +1,20 @@
 using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Identity;
 
 namespace SongsAPI.Models.Users
 {
-    public class Teacher
+    public class Teacher : ApplicationUser
     {
-        public int Id { get; set; }
+        [Key]
+        public new int Id { get; set; } // Change Id type to int
 
         [Required]
         [StringLength(100)]
-        public string Name { get; set; } = string.Empty;
-
-        [Required]
-        [EmailAddress]
-        public string Email { get; set; } = string.Empty;
+        public new string Name { get; set; } = string.Empty;
 
         // Navigation property for lessons
-        public ICollection<Lesson> Lessons { get; set; } = new List<Lesson>();
+        public new ICollection<Lesson> Lessons { get; set; } = new List<Lesson>();
+
+        public ICollection<Student> Students { get; set; } = new List<Student>();
     }
 }

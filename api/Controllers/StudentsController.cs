@@ -46,7 +46,7 @@ namespace SongsAPI.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutStudent(string id, Student student)
         {
-            if (id != student.Id)
+            if (id != student.Id.ToString())
             {
                 return BadRequest();
             }

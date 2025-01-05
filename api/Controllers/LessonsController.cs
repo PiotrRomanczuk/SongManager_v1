@@ -143,7 +143,8 @@ namespace SongsAPI.Controllers
                 return NotFound("Lesson not found");
             }
 
-            var student = lesson.Students.FirstOrDefault(s => s.Id == studentId);
+            var studentIdInt = int.Parse(studentId);
+            var student = lesson.Students.FirstOrDefault(s => s.Id == studentIdInt.ToString());
             if (student == null)
             {
                 return NotFound("Student not found in this lesson");
