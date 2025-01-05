@@ -46,7 +46,7 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
 .AddDefaultTokenProviders();
 
 // Register UserManager<Student>
-builder.Services.AddScoped<UserManager<ApplicationUser>>();
+builder.Services.AddScoped<UserManager<Student>>();
 
 // Add JWT Authentication
 builder.Services.AddAuthentication(options =>
@@ -73,7 +73,7 @@ builder.Services.AddAuthentication(options =>
 
 // Add Scopes for Token Service, SongImportService, RoleService
 builder.Services.AddScoped<TokenService>();
-builder.Services.AddScoped<SongImportService>();
+// builder.Services.AddScoped<SongImportService>();
 builder.Services.AddScoped<RoleService>();
 
 // Add CORS

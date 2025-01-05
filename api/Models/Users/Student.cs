@@ -5,7 +5,14 @@ namespace SongsAPI.Models.Users
 {
     public class Student : ApplicationUser
     {
+        [Required]
+        [StringLength(100)]
+        public string Name { get; set; } = string.Empty;
 
-        // public Teacher Teacher { get; set; }
+        // Navigation property for songs
+        public virtual ICollection<Song> FavoriteSongs { get; set; } = new List<Song>();
+
+        // Navigation property for lessons
+        public virtual ICollection<Lesson> Lessons { get; set; } = new List<Lesson>();
     }
 }
