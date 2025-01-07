@@ -6,7 +6,7 @@ public class ApplicationUser : IdentityUser
 {
     // override the Id property from IdentityUser
     [Key]
-    public override string Id { get; set; } = Guid.NewGuid().ToString();
+    public override string Id { get; set; } = string.Empty;
 
     [Required]
     [StringLength(100)]
@@ -24,7 +24,7 @@ public class ApplicationUser : IdentityUser
 
     public virtual ICollection<Song> FavoriteSongs { get; set; } = new List<Song>();
 
-    // Navigation property for lessons
+    // // Navigation property for lessons
     public virtual ICollection<Lesson> Lessons { get; set; } = new List<Lesson>();
 
 }

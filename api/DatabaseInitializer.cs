@@ -20,7 +20,7 @@ public static class DatabaseInitializer
         using (var scope = app.ApplicationServices.CreateScope())
         {
             var roleService = scope.ServiceProvider.GetRequiredService<RoleService>();
-            await roleService.EnsureAdminRoleExists();
+            // await roleService.EnsureAdminRoleExists();
         }
     }
 

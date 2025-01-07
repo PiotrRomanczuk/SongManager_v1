@@ -34,7 +34,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 // Add Identity
-builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
+builder.Services.AddIdentity<Student, IdentityRole>(options =>
 {
     options.Password.RequireDigit = true;
     // options.Password.RequireLowercase = true;
@@ -73,8 +73,8 @@ builder.Services.AddAuthentication(options =>
 
 // Add Scopes for Token Service, SongImportService, RoleService
 builder.Services.AddScoped<TokenService>();
-// builder.Services.AddScoped<SongImportService>();
-builder.Services.AddScoped<RoleService>();
+builder.Services.AddScoped<SongImportService>();
+// builder.Services.AddScoped<RoleService>();
 
 // Add CORS
 builder.Services.AddCors(options =>

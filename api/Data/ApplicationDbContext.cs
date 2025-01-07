@@ -57,7 +57,6 @@ namespace SongsAPI.Data
             // Configure Teacher Id as primary key
             modelBuilder.Entity<Teacher>()
                 .HasKey(t => t.Id);
-            // .WithMany(student => student.Teachers);
         }
     }
 }
